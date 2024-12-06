@@ -9,16 +9,33 @@
                         <td width="25%"></td>
                         <td bgcolor="#acfda8">
 <!----------------------------------->
-                            <table>
-                                <div class="msg">
-                                    <tr>
-                                        <td>number</td>
-                                        <td>time</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">test</td>
-                                    </tr>
-                                </div>
+                            <table border="0" cellpadding="5">
+<!--                                    <div class="msg">-->
+<!--                                        <tr>-->
+<!--                                            <td>number</td>-->
+<!--                                            <td class="time">time</td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td colspan="2" class="msg_content">test content</td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td colspan="2">&nbsp;</td>-->
+<!--                                        </tr>-->
+<!--                                    </div>-->
+                                {% for msg in data %}
+                                    <div class="msg">
+                                        <tr>
+                                            <td width="35" align="right">{{ forloop.counter }}</td>
+                                            <td class="time">{{ msg.time_create }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="msg_content">{{ msg.data }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                        </tr>
+                                    </div>
+                                {% endfor %}
                             </table>
 <!----------------------------------->
                         </td>

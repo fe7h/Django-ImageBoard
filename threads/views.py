@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from .models import Message
 
 # Create your views here.
 def thread(request):
-    return render(request,'threads/thread.html')
+    data = Message.objects.all()
+    return render(request,'threads/thread.html', context={'data' : data})

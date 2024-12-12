@@ -1,79 +1,55 @@
-<table border="1" align="center" width="100%" height="100%" bgcolor="red">
+{% extends 'base.html' %}
 
-    <tbody height="100%">
-        <tr>
-            <td valign="top">
-
-                <table border="1" bgcolor="green" width="100%">
-                    <tr>
-                        <td width="25%"></td>
-                        <td bgcolor="#acfda8">
-<!----------------------------------->
-                            <table border="1" cellpadding="5">
-<!--                                    <div class="msg">-->
-<!--                                        <tr>-->
-<!--                                            <td>number</td>-->
-<!--                                            <td class="time">time</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td colspan="2" class="msg_content">test content</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td colspan="2">&nbsp;</td>-->
-<!--                                        </tr>-->
-<!--                                    </div>-->
-                                {% for msg in data %}
-                                <div class="msg">
-                                    <tr>
-                                        <td width="35" align="right" bgcolor="#d8fda8"><b>{{ forloop.counter }}</b></td>
-                                        <td class="time">{{ msg.time_create }}</td>
-                                    </tr>
-                                    {% if msg.images.exists %}
-                                    <tr>
-                                        <td colspan="2">
-                                        {% for img in msg.images.all %}
-                                        <img src="{{ img.img.url }}" width="150">
-                                        {% endfor %}
-                                        </td>
-                                    </tr>
-                                    {% endif %}
-                                    <tr>
-                                        <td colspan="2" class="msg_content">{{ msg.data }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"></td>
-                                    </tr>
-                                </div>
-                                {% endfor %}
-                                <div class="msg_form">
-                                    <tr>
-                                        <td colspan="2">
-                                            <form method="post" enctype="multipart/form-data">
-                                                {% csrf_token %}
-                                                <textarea name="test" cols="70" rows="10"></textarea>
-                                                <br>
-                                                <input type="file" name="img" multiple>
-                                                <br>
-                                                <input type="submit">
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </div>
-                            </table>
-<!----------------------------------->
-                        </td>
-                        <td width="25%"></td>
-                    </tr>
-                </table>
-
-            </td>
-        </tr>
-    </tbody>
-
-    <tfoot height="30">
-        <tr bgcolor="blue">
-            <td></td>
-        </tr>
-    </tfoot>
-
+{% block content %}
+<table border="1" cellpadding="5">
+<!--    <div class="msg">-->
+<!--        <tr>-->
+<!--            <td>number</td>-->
+<!--            <td class="time">time</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td colspan="2" class="msg_content">test content</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td colspan="2">&nbsp;</td>-->
+<!--        </tr>-->
+<!--    </div>-->
+{% for msg in data %}
+<div class="msg">
+    <tr>
+        <td width="35" align="right" bgcolor="#d8fda8"><b>{{ forloop.counter }}</b></td>
+        <td class="time">{{ msg.time_create }}</td>
+    </tr>
+    {% if msg.images.exists %}
+    <tr>
+        <td colspan="2">
+        {% for img in msg.images.all %}
+        <img src="{{ img.img.url }}" width="150">
+        {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
+    <tr>
+        <td colspan="2" class="msg_content">{{ msg.data }}</td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+    </tr>
+</div>
+{% endfor %}
+<div class="msg_form">
+    <tr>
+        <td colspan="2">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <textarea name="test" cols="70" rows="10"></textarea>
+                <br>
+                <input type="file" name="img" multiple>
+                <br>
+                <input type="submit">
+            </form>
+        </td>
+    </tr>
+</div>
 </table>
+{% endblock %}

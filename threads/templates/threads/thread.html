@@ -25,9 +25,18 @@
                                 {% for msg in data %}
                                 <div class="msg">
                                     <tr>
-                                        <td width="35" align="right">{{ forloop.counter }}</td>
+                                        <td width="35" align="right" bgcolor="#d8fda8"><b>{{ forloop.counter }}</b></td>
                                         <td class="time">{{ msg.time_create }}</td>
                                     </tr>
+                                    {% if msg.images.exists %}
+                                    <tr>
+                                        <td colspan="2">
+                                        {% for img in msg.images.all %}
+                                        <img src="{{ img.img.url }}" width="150">
+                                        {% endfor %}
+                                        </td>
+                                    </tr>
+                                    {% endif %}
                                     <tr>
                                         <td colspan="2" class="msg_content">{{ msg.data }}</td>
                                     </tr>
@@ -39,9 +48,11 @@
                                 <div class="msg_form">
                                     <tr>
                                         <td colspan="2">
-                                            <form method="post">
+                                            <form method="post" enctype="multipart/form-data">
                                                 {% csrf_token %}
                                                 <textarea name="test" cols="70" rows="10"></textarea>
+                                                <br>
+                                                <input type="file" name="img" multiple>
                                                 <br>
                                                 <input type="submit">
                                             </form>

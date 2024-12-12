@@ -1,2 +1,4 @@
 __pycache__/
 htmlTest
+media/*
+!media/.gitkeep

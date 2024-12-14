@@ -20,12 +20,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from threads.views import thread
-from boards.views import board
+from boards.views import board, temp_form
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('thread/', thread),
     path('', board),
+    path('temp_form/', temp_form, name='temp_form')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

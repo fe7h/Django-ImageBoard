@@ -19,12 +19,13 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from threads import views
+from threads.views import thread
+from boards.views import board
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('thread/', views.thread),
-    path('', views.thread),
+    path('thread/', thread),
+    path('', board),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -13,7 +13,7 @@
         <td width="35" align="right" bgcolor="#d8fda8" ><b>{{ thred.pk }}</b></td>
         <td class="time">{{ thred.time_create }}</td>
         <td>
-            <a href="">dive in</a>
+            <a href="{% url 'thread' thread_id=thred.pk %}">dive in</a>
         </td>
     </tr>
     <tr>

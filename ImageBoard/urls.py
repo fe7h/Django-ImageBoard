@@ -24,7 +24,7 @@ from boards.views import board, temp_form
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('thread/', thread),
+    path('thread/<int:thread_id>/', thread, name='thread'),
     path('', board),
     path('temp_form/', temp_form, name='temp_form')
 ]

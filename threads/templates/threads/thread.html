@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<table border="1" cellpadding="5">
+<table border="1" cellpadding="5" width="100%">
+    <tr>
+        <td colspan="2">
+            <table>
+                <tr>
+                    <td><img src="{{ thread_title.title_img.url }}" width="225"></td>
+                    <td valign="top">
+                        <h1>{{ thread_title.title }}</h1>
+                        <br>
+                        {{ thread_title.data }}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 <!--    <div class="msg">-->
 <!--        <tr>-->
 <!--            <td>number</td>-->

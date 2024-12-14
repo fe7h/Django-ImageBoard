@@ -3,7 +3,8 @@ from .models import ThreadModel
 
 
 def board(request):
-    return render(request, 'boards/board.html')
+    threds_info = ThreadModel.objects.all()
+    return render(request, 'boards/board.html', context={'threds_info' : threds_info})
 
 
 def temp_form(request):

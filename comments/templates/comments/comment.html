@@ -1,0 +1,21 @@
+<div class="msg">
+    <tr>
+        <td width="35" align="right" bgcolor="#d8fda8"><b>{{ forloop.counter }}</b></td>
+        <td class="time">{{ msg.time_create }}</td>
+    </tr>
+    {% if msg.images.exists %}
+    <tr>
+        <td colspan="2">
+        {% for img in msg.images.all %}
+        <img src="{{ img.img.url }}" width="150">
+        {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
+    <tr>
+        <td colspan="2" class="msg_content">{{ msg.data }}</td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+    </tr>
+</div>

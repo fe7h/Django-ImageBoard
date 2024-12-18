@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load comments_list from comments_tags %}
 
 {% block content %}
 <table border="1" cellpadding="5" width="100%">
@@ -6,51 +7,19 @@
         <td colspan="2">
             <table>
                 <tr>
-                    <td><img src="{{ thread_title.title_img.url }}" width="225"></td>
+                    <td><img src="" width="225"></td>
                     <td valign="top">
-                        <h1>{{ thread_title.title }}</h1>
+                        <h1>{{ thread.title }}</h1>
                         <br>
-                        {{ thread_title.data }}
+                        {{ thread.data }}
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
-<!--    <div class="msg">-->
-<!--        <tr>-->
-<!--            <td>number</td>-->
-<!--            <td class="time">time</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td colspan="2" class="msg_content">test content</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td colspan="2">&nbsp;</td>-->
-<!--        </tr>-->
-<!--    </div>-->
-{% for msg in data %}
-<div class="msg">
-    <tr>
-        <td width="35" align="right" bgcolor="#d8fda8"><b>{{ forloop.counter }}</b></td>
-        <td class="time">{{ msg.time_create }}</td>
-    </tr>
-    {% if msg.images.exists %}
-    <tr>
-        <td colspan="2">
-        {% for img in msg.images.all %}
-        <img src="{{ img.img.url }}" width="150">
-        {% endfor %}
-        </td>
-    </tr>
-    {% endif %}
-    <tr>
-        <td colspan="2" class="msg_content">{{ msg.data }}</td>
-    </tr>
-    <tr>
-        <td colspan="2"></td>
-    </tr>
-</div>
-{% endfor %}
+
+{% comments_list thread %}
+
 <div class="msg_form">
     <tr>
         <td colspan="2">

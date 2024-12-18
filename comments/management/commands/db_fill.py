@@ -19,19 +19,28 @@ def rand_message():
 if __name__ != '__main__':
 
     from django.core.management.base import BaseCommand, CommandError
-    from threads.models import Message
-
+    from comments.models import Comment
+    from django.apps import apps
 
     class Command(BaseCommand):
         help = "Fills db with data"
 
-        # def add_arguments(self, parser):
-        #     parser.add_argument()
+        def add_arguments(self, parser):
+            parser.add_argument('app_model', metavar='app.model', type=str)
+            parser.add_argument('pk', type=int)
 
         def handle(self, *args, **options):
-            for i in range(10):
-                Message.objects.create(data=rand_message())
+            app_label, model_name = options['app_model'].split('.')
+            pk = options['pk']
 
+            # print(options)
+
+            model = apps.get_model(app_label=app_label, model_name=model_name)
+
+            model_obj = model.objects.get(pk=pk)
+
+            for i in range(10):
+                Comment.objects.create(data=rand_message(), content_object=model_obj)
 
 
 if __name__ == '__main__':

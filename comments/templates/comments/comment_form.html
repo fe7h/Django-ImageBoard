@@ -1,0 +1,30 @@
+<!--<div class="msg_form">-->
+<!--    <tr>-->
+<!--        <td colspan="2">-->
+<!--            <form method="post" enctype="multipart/form-data">-->
+<!--                {% csrf_token %}-->
+<!--                <textarea name="test" cols="70" rows="10"></textarea>-->
+<!--                <br>-->
+<!--                <input type="file" name="img" multiple>-->
+<!--                <br>-->
+<!--                <input type="submit">-->
+<!--            </form>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</div>-->
+<form method="post" enctype="multipart/form-data" action="{% url 'comments-add-comment' %}">
+<tr>
+    <td colspan="2">
+
+            {% csrf_token %}
+            {{ form.as_p }}
+
+    </td>
+</tr>
+    <tr>
+        <td>
+             <input type="submit">
+            <button type="submit">Press</button>
+        </td>
+    </tr>
+ </form>

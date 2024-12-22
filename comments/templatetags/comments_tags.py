@@ -1,10 +1,24 @@
 from django import template
+from django.contrib.contenttypes.models import ContentType
 
+from comments.forms import AddCommentForm
 
 register = template.Library()
 
 
 @register.inclusion_tag('comments/comment_list.html')
-def comments_list(assoc_obj):
+def comment_list(assoc_obj):
     comments = assoc_obj.comments.all()
     return {'comments': comments}
+
+
+@register.inclusion_tag('comments/comment_form.html')
+def comment_form(assoc_obj):
+    content_type = ContentType.objects.get_for_model(assoc_obj)
+    object_id = assoc_obj.pk
+    print(locals())
+    form = AddCommentForm(initial={
+        'content_type': content_type,
+        'object_id': object_id,
+    })
+    return {'form': form}

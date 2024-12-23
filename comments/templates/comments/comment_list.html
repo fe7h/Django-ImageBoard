@@ -1,3 +1,5 @@
-{% for msg in comments %}
-{% include 'comments/comment.html' %}
-{% endfor %}
+<table class="msg" border="1" cellpadding="5" width="100%">
+    {% for msg in comments %}
+    {% include 'comments/comment.html' %}
+    {% endfor %}
+</table>

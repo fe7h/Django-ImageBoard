@@ -12,20 +12,19 @@
 <!--        </td>-->
 <!--    </tr>-->
 <!--</div>-->
-<form method="post" enctype="multipart/form-data" action="{% url 'comments-add-comment' %}">
-<tr>
-    <td colspan="2">
-
-            {% csrf_token %}
-            {{ main_form.as_p }}
-            {{ image_form.as_p }}
-
-    </td>
-</tr>
-    <tr>
-        <td>
-             <input type="submit">
-            <button type="submit">Press</button>
-        </td>
-    </tr>
- </form>
+<table>
+    <form method="post" enctype="multipart/form-data" action="{% url 'comments-add-comment' %}">
+        <tr>
+            <td colspan="2">
+                {% csrf_token %}
+                {{ main_form.as_p }}
+                {{ image_form.as_p }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                 <input type="submit">
+            </td>
+        </tr>
+    </form>
+</table>

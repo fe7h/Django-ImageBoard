@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% load comments_list from comments_tags %}
+{% load comment_list from comments_tags %}
+{% load comment_form from comments_tags %}
 
 {% block content %}
 <table border="1" cellpadding="5" width="100%">
@@ -18,21 +19,9 @@
         </td>
     </tr>
 
-{% comments_list thread %}
+    {% comment_list thread %}
 
-<div class="msg_form">
-    <tr>
-        <td colspan="2">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <textarea name="test" cols="70" rows="10"></textarea>
-                <br>
-                <input type="file" name="img" multiple>
-                <br>
-                <input type="submit">
-            </form>
-        </td>
-    </tr>
-</div>
+    {% comment_form thread thread.get_absolute_url %}
+
 </table>
 {% endblock %}

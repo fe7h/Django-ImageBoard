@@ -3,7 +3,9 @@
         <td colspan="2">
             <table>
                 <tr>
+                    {% if thread.title_img %}
                     <td><img src="{{ thread.title_img.url }}" width="225"></td>
+                    {% endif %}
                     <td valign="top">
                         <h1>{{ thread.title }}</h1>
                         <br>

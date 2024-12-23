@@ -6,10 +6,9 @@ from comments.mixins import CommentedMixin
 
 class Thread(CommentedMixin):
     title = models.CharField(max_length=100)
-    title_img = models.ImageField(upload_to='threads/images/')
-    data = models.TextField()
+    title_img = models.ImageField(upload_to='threads/images/', blank=False, null=False)
+    data = models.TextField(blank=False)
     time_create = models.DateTimeField(auto_now_add=True)
-
 
     def get_absolute_url(self):
         return reverse('thread', kwargs={'thread_id': self.pk})

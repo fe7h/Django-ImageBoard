@@ -13,7 +13,10 @@ class Comment(models.Model):
 
 
 class AttachedImage(models.Model):
-    message = models.ForeignKey(Comment,
-                                on_delete=models.CASCADE,
-                                related_name='images')
+    comment = models.ForeignKey(
+        Comment,
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+
     img = models.ImageField(upload_to='threads/images/')

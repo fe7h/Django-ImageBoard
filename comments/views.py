@@ -2,26 +2,26 @@ from django.shortcuts import resolve_url, redirect
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 
-from .forms import AddCommentForm
+from .forms import AddCommentForm, AttachedImageForm
 
 
 @require_POST
 def add_comment(request):
+    post_data = request.POST.copy()
+    main_form = AddCommentForm(post_data)
+    image_form = AttachedImageForm(post_data, request.FILES)
 
-    data = request.POST.copy()
-    print(data)
-    form = AddCommentForm(data)
+    if main_form.is_valid():
+        comment_pk = main_form.save().pk
 
-    if form.is_valid():
-        print(form.cleaned_data)
-        com_obj = form.save()
+        if post_data.get('images') is None and image_form.is_valid():
+            image_form.save(comment_pk)
 
-        next = form.cleaned_data.get('next')
+        next = main_form.cleaned_data.get('next')
         if next:
             url = resolve_url(next)
-            print(url)
             return redirect(url)
 
-        return HttpResponse(com_obj.pk)
+        return HttpResponse(comment_pk)
 
     return HttpResponse('Form don\'t valid!')

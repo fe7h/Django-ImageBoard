@@ -2,8 +2,16 @@ from django import template
 # from django.contrib.contenttypes.models import ContentType
 
 from threads.forms import AddThreadForm
+from threads.models import Thread
 
 register = template.Library()
+
+
+@register.inclusion_tag('threads/thread_preview_list.html')
+def thread_preview_list():#assoc_obj):
+    # threads = assoc_obj.threads.all()
+    threads = Thread.objects.all()
+    return {'threads': threads}
 
 
 @register.inclusion_tag('threads/thread_form.html')

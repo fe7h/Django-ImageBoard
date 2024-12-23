@@ -1,0 +1,22 @@
+<tr>
+    <td width="35" align="right" bgcolor="#d8fda8" ><b>{{ thread.pk }}</b></td>
+    <td class="time">{{ thread.time_create }}</td>
+    <td>
+        <a href="{{ thread.get_absolute_url }}">dive in</a>
+    </td>
+</tr>
+<tr>
+    {% if thread.title_img %}
+    <td width="30%" align="center" colspan="2">
+        <img src="{{ thread.title_img.url }}"
+        width="225">
+    </td>
+    {% endif %}
+    <td valign="top" {% if not thread.title_img %} colspan="3" {% endif %}>
+        <h1>{{ thread.title }}</h1>
+        {{ thread.data }}
+    </td>
+</tr>
+    <tr>
+    <td colspan="3"></td>
+</tr>

@@ -13,12 +13,15 @@ def comment_list(assoc_obj):
 
 
 @register.inclusion_tag('comments/comment_form.html')
-def comment_form(assoc_obj):
+def comment_form(assoc_obj, next=False):
     content_type = ContentType.objects.get_for_model(assoc_obj)
     object_id = assoc_obj.pk
-    print(locals())
+
     form = AddCommentForm(initial={
         'content_type': content_type,
         'object_id': object_id,
     })
+    if next:
+        form.initial['next'] = next
+
     return {'form': form}

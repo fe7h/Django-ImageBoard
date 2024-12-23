@@ -1,5 +1,3 @@
-from email.policy import default
-
 from django import forms
 from django.core.exceptions import ValidationError
 from django.apps import apps
@@ -12,7 +10,7 @@ class AddCommentForm(forms.ModelForm):
     content_type = forms.CharField(widget=forms.HiddenInput)
     object_id = forms.CharField(widget=forms.HiddenInput)
 
-    # next = forms.CharField(widget=forms.HiddenInput, default='about_comment')
+    next = forms.CharField(widget=forms.HiddenInput, required=False)
 
     def clean_content_type(self):
         content_type = self.cleaned_data.get('content_type')

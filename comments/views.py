@@ -1,10 +1,8 @@
-from django.shortcuts import render, resolve_url, redirect
+from django.shortcuts import resolve_url, redirect
 from django.views.decorators.http import require_POST
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.http import HttpResponse
 
 from .forms import AddCommentForm
-from .models import Comment
 
 
 @require_POST
@@ -18,13 +16,12 @@ def add_comment(request):
         print(form.cleaned_data)
         com_obj = form.save()
 
-        # next = form.cleaned_data.get('next')
-        # url = resolve_url(next)
-        # if next == 'about_comment':
-        #     response = reverse(next, kwargs={'comment_id': com_obj.pk})
-        # else:
-        #     response = reverse()
-        # return redirect(url)
-        return HttpResponse('Done')
+        next = form.cleaned_data.get('next')
+        if next:
+            url = resolve_url(next)
+            print(url)
+            return redirect(url)
 
-    return HttpResponse('Don\'t done')
+        return HttpResponse(com_obj.pk)
+
+    return HttpResponse('Form don\'t valid!')

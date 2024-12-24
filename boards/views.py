@@ -1,18 +1,9 @@
-from django.shortcuts import render, redirect
-from .models import ThreadModel
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .models import Board
 
 
-def board(request):
-    threds_info = ThreadModel.objects.all()
-    return render(request, 'boards/board.html', context={'threds_info' : threds_info})
+def board_show(request, board_slug):
+    board = get_object_or_404(Board, slug=board_slug)
 
-
-def temp_form(request):
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        data = request.POST.get('data')
-        title_img = request.FILES.get('title_img')
-        print(title, data, title_img)
-        ThreadModel.objects.create(title=title, data=data, title_img=title_img)
-        return redirect(temp_form)
-    return render(request, 'boards/temp_form.html')
+    return render(request, 'boards/board.html', context={'board': board})

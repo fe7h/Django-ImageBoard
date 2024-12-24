@@ -9,6 +9,7 @@ class Thread(CommentedMixin):
     title_img = models.ImageField(upload_to='threads/images/', blank=True, null=True)
     data = models.TextField(blank=True)
     time_create = models.DateTimeField(auto_now_add=True)
+    board = models.ForeignKey('boards.Board', on_delete=models.CASCADE, related_name='threads')
 
     def get_absolute_url(self):
-        return reverse('thread', kwargs={'thread_id': self.pk})
+        return reverse('thread', kwargs={'thread_id': self.pk, 'board_slug': self.board.slug})

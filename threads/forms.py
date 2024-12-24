@@ -7,9 +7,8 @@ from .models import Thread
 
 
 class AddThreadForm(forms.ModelForm):
-    # content_type = forms.CharField(widget=forms.HiddenInput)
-    # object_id = forms.CharField(widget=forms.HiddenInput)
-    #
+    board_id = forms.IntegerField(widget=forms.HiddenInput)
+
     # def clean_content_type(self):
     #     content_type = self.cleaned_data.get('content_type')
     #     app_model = content_type.replace(' | ', '.')
@@ -21,4 +20,4 @@ class AddThreadForm(forms.ModelForm):
 
     class Meta:
         model = Thread
-        fields = ['title', 'title_img', 'data'] #, 'content_type', 'object_id']
+        fields = ['title', 'title_img', 'data', 'board_id'] #, 'content_type', 'object_id']

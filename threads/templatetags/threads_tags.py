@@ -8,21 +8,19 @@ register = template.Library()
 
 
 @register.inclusion_tag('threads/thread_preview_list.html')
-def thread_preview_list():#assoc_obj):
-    # threads = assoc_obj.threads.all()
-    threads = Thread.objects.all()
+def thread_preview_list(board_obj):
+    threads = board_obj.threads.all()
     return {'threads': threads}
 
 
 @register.inclusion_tag('threads/thread_form.html')
-def thread_form():#assoc_obj):
-    # content_type = ContentType.objects.get_for_model(assoc_obj)
-    # object_id = assoc_obj.pk
+def thread_form(board_obj):
+    board_slug = board_obj.slug
+    board_id = board_obj.pk
 
-    form = AddThreadForm()
-    #     initial={
-    #     'content_type': content_type,
-    #     'object_id': object_id,
-    # })
+    form = AddThreadForm(
+        initial={
+        'board_id': board_id,
+    })
 
-    return {'form': form}
+    return {'form': form, 'board_slug': board_slug}

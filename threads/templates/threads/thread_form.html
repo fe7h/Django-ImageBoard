@@ -1,4 +1,4 @@
-<form method="post" enctype="multipart/form-data" action="{% url 'threads-add-thread' %}">
+<form method="post" enctype="multipart/form-data" action="{% url 'threads-add-thread' board_slug=board_slug %}">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit">

@@ -16,13 +16,11 @@ def thread_show(request, board_slug, thread_id):
 def add_thread(request, board_slug):
     form = AddThreadForm(request.POST, request.FILES)
 
-    print(request.POST)
+    print(request.POST)git
 
     if form.is_valid():
         print(form.cleaned_data)
-        thread_obj = form.save(commit=False)
-        thread_obj.board_id = form.cleaned_data.get('board_id')
-        thread_obj.save()
+        thread_obj = form.save()
         url = resolve_url(thread_obj)
         return redirect(url)
 

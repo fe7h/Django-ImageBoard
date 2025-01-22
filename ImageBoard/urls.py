@@ -15,18 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
-from threads.views import thread
 # from boards.views import board, temp_form
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('thread/<int:thread_id>/', thread, name='thread'),
-    # path('', board),
-    # path('temp_form/', temp_form, name='temp_form')
+    path('', include('boards.urls')),
+    # path('thread/', include('threads.urls')),
+    path('comment/', include('comments.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

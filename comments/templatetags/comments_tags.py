@@ -8,7 +8,7 @@ register = template.Library()
 
 @register.inclusion_tag('comments/comment_list.html')
 def comment_list(assoc_obj):
-    comments = assoc_obj.comments.all()
+    comments = assoc_obj.comments.all().prefetch_related('images')
     return {'comments': comments}
 
 

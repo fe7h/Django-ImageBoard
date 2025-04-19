@@ -7,7 +7,7 @@ from .forms import AddThreadForm
 
 
 def thread_show(request, board_slug, thread_id):
-    thread = get_object_or_404(Thread, pk=thread_id)
+    thread = get_object_or_404(Thread, pk=thread_id, board__slug=board_slug)
 
     return render(request,'threads/thread.html', context={'thread' : thread})
 
@@ -16,7 +16,7 @@ def thread_show(request, board_slug, thread_id):
 def add_thread(request, board_slug):
     form = AddThreadForm(request.POST, request.FILES)
 
-    print(request.POST)git
+    print(request.POST)
 
     if form.is_valid():
         print(form.cleaned_data)

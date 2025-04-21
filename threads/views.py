@@ -1,15 +1,25 @@
 from django.shortcuts import render, redirect, resolve_url, get_object_or_404
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST
+from django.views.generic import DetailView
 
 from .models import Thread
 from .forms import AddThreadForm
 
 
-def thread_show(request, board_slug, thread_id):
-    thread = get_object_or_404(Thread, pk=thread_id, board__slug=board_slug)
+class ThreadDetailView(DetailView):
+    model = Thread
+    template_name = 'threads/thread.html'
+    context_object_name = 'thread'
+    slug_url_kwarg = 'board_slug'
+    pk_url_kwarg = 'thread_id'
 
-    return render(request,'threads/thread.html', context={'thread' : thread})
+    def get_object(self, queryset=None):
+        return get_object_or_404(
+            self.model.objects.select_related('board'),
+            pk=self.kwargs[self.pk_url_kwarg],
+            board__slug=self.kwargs[self.slug_url_kwarg],
+        )
 
 
 @require_POST

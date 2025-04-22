@@ -16,7 +16,7 @@ class ThreadDetailView(DetailView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(
-            self.model.objects.select_related('board'),
+            self.model.with_related_board,
             pk=self.kwargs[self.pk_url_kwarg],
             board__slug=self.kwargs[self.slug_url_kwarg],
         )

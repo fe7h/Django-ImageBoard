@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect, resolve_url, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
-from django.views.decorators.http import require_POST
-from django.views.generic import DetailView
+from django.views.generic import DetailView, CreateView
 
 from .models import Thread
 from .forms import AddThreadForm
@@ -22,16 +21,13 @@ class ThreadDetailView(DetailView):
         )
 
 
-@require_POST
-def add_thread(request, board_slug):
-    form = AddThreadForm(request.POST, request.FILES)
+class AddThreadView(CreateView):
+    form_class = AddThreadForm
 
-    print(request.POST)
+    def get_initial(self):
+        initail = super().get_initial()
+        initail['board'] = self.kwargs.get('board_slug')
+        return initail
 
-    if form.is_valid():
-        print(form.cleaned_data)
-        thread_obj = form.save()
-        url = resolve_url(thread_obj)
-        return redirect(url)
-
-    return HttpResponse('Form don\'t valid!')
+    def form_invalid(self, form):
+        return HttpResponse('Form don\'t valid!')

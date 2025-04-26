@@ -1,9 +1,15 @@
 from django import forms
+from django.apps import apps
 
 from .models import Thread
 
 
 class NoRenderFieldsMixin:
+    '''Использовать вместе с Form(initial={'no_render_fields[0]': value, ...}
+
+    При вызове внутренего клин метода джанго делает проверку:
+    bf.initial if field.disabled else bf.data
+    '''
     # переписать по красоте
     no_render_fields = ()
 
@@ -32,19 +38,14 @@ class NoRenderFieldsMixin:
 class AddThreadForm(NoRenderFieldsMixin, forms.ModelForm):
     no_render_fields = ('board',)
 
+    board = forms.Field()
+
     class Meta:
         model = Thread
         fields = ['title', 'title_img', 'data', 'board']
 
-    def save(self, *args, **kwargs):
-        thread_obj = super().save(commit=False)
-        thread_obj.board_id = self.cleaned_data.get('board_id')
-        thread_obj.save()
-        return thread_obj
-
-
-# Thread._meta.get_field('board').related_model._meta.label >>> 'boards.Board'
-# model = get_model(app_str, model_str)
-# model.get(slug=board_slug)
-
-# value = bf.initial if field.disabled else bf.data
+    def clean_board(self):
+        related_model_name = self._meta.model._meta.get_field('board').related_model._meta.label
+        related_model = apps.get_model(related_model_name)
+        slug = self.cleaned_data.get('board')
+        return related_model.objects.only('slug').get(slug=slug)

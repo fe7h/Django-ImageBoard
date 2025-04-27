@@ -9,6 +9,6 @@ board_internal_patterns = [
 ]
 
 urlpatterns = [
-    # path('', views.board_list, name='board-list'),
+    path('', views.BoardListView.as_view(), name='board-list'),
     path('board/', include((board_internal_patterns, None))),
 ]

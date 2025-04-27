@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<table border="1" cellpadding="5" width="100%">
+
+    <tr align="center">
+        <td colspan="2">
+            <h1>BOARDS</h1>
+        </td>
+    </tr>
+
+    {% for board in boards %}
+        {% if not forloop.counter|divisibleby:2 %}
+            <tr align="center">
+        {% endif %}
+            <td {% if not forloop.last %}width="50%"{% elif not boards|length|divisibleby:2 %}colspan="2"{% endif %}>
+                <h3><a href="{{ board.get_absolute_url }}">{{ board.name }}</a></h3>
+            </td>
+        {% if forloop.counter|divisibleby:2 %}
+            </tr>
+        {% endif %}
+    {% endfor %}
+
+</table>
+
+{% endblock %}

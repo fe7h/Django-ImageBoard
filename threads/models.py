@@ -22,3 +22,6 @@ class Thread(CommentedMixin):
 
     def get_absolute_url(self):
         return reverse('thread', kwargs={'thread_id': self.pk, 'board_slug': self.board.slug})
+
+    class Meta:
+        ordering = ['-time_create']

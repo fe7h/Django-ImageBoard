@@ -2,3 +2,4 @@ __pycache__/
 htmlTest
 media/*
 !media/.gitkeep
+db.sqlite3

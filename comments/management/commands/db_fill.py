@@ -1,6 +1,10 @@
 import string
 import random
 
+from django.core.management.base import BaseCommand
+from comments.models import Comment
+from django.apps import apps
+
 
 def rand_message():
     sentence = ''
@@ -15,33 +19,20 @@ def rand_message():
     return sentence
 
 
+class Command(BaseCommand):
+    help = "Fills db with data"
 
-if __name__ != '__main__':
+    def add_arguments(self, parser):
+        parser.add_argument('app_model', metavar='app.model', type=str)
+        parser.add_argument('pk', type=int)
 
-    from django.core.management.base import BaseCommand, CommandError
-    from comments.models import Comment
-    from django.apps import apps
+    def handle(self, *args, **options):
+        app_label, model_name = options['app_model'].split('.')
+        pk = options['pk']
 
-    class Command(BaseCommand):
-        help = "Fills db with data"
+        model = apps.get_model(app_label=app_label, model_name=model_name)
 
-        def add_arguments(self, parser):
-            parser.add_argument('app_model', metavar='app.model', type=str)
-            parser.add_argument('pk', type=int)
+        model_obj = model.objects.get(pk=pk)
 
-        def handle(self, *args, **options):
-            app_label, model_name = options['app_model'].split('.')
-            pk = options['pk']
-
-            # print(options)
-
-            model = apps.get_model(app_label=app_label, model_name=model_name)
-
-            model_obj = model.objects.get(pk=pk)
-
-            for i in range(10):
-                Comment.objects.create(data=rand_message(), content_object=model_obj)
-
-
-if __name__ == '__main__':
-    print(rand_message())
+        for i in range(10):
+            Comment.objects.create(data=rand_message(), content_object=model_obj)

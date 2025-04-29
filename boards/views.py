@@ -1,4 +1,3 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import DetailView, ListView
 
 from .models import Board
@@ -15,4 +14,3 @@ class BoardListView(ListView):
     model = Board
     template_name = 'boards/board_list.html'
     context_object_name = 'boards'
-

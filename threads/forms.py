@@ -10,7 +10,6 @@ class NoRenderFieldsMixin:
     При вызове внутренего клин метода джанго делает проверку:
     bf.initial if field.disabled else bf.data
     '''
-    # переписать по красоте
     no_render_fields = ()
 
     def __init__(self, *args, **kwargs):
@@ -20,7 +19,8 @@ class NoRenderFieldsMixin:
 
     @staticmethod
     def _redesign(data, bad):
-        # data: [(django.forms.boundfield.BoundField, ...), ...]
+        '''data: [(django.forms.boundfield.BoundField, ...), ...]
+        '''
         to_remove = []
         for i in range(len(data)):
             if data[i][0].name in bad:

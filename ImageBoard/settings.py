@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'boards',
 
     'django_extensions',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

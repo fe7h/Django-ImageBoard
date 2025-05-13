@@ -1,14 +1,9 @@
 from django.db import models
 from django.urls import reverse
 
+from utils.utils import related_model_manager_factory
+
 from comments.mixins import CommentedMixin
-
-
-def related_model_manager_factory(related_field_name:str) -> models.Manager:
-    class NewManager(models.Manager):
-        def get_queryset(self):
-            return super().get_queryset().select_related(related_field_name)
-    return NewManager()
 
 
 class Thread(CommentedMixin):

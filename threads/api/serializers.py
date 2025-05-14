@@ -14,7 +14,7 @@ class DetailThreadSerializers(BaseThreadSerializers):
     comments = ReadCommentSerializers(many=True, read_only=True)
 
     class Meta(BaseThreadSerializers.Meta):
-        read_only_fields = '__all__'
+        read_only_fields = ('__all__',)
 
 
 class ListThreadSerializers(BaseThreadSerializers):

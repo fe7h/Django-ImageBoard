@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
 from boards.models import Board
-from boards.serializers import BoardSerializers
+from .serializers import BoardSerializers
 
 
 class BoardApiView(viewsets.ReadOnlyModelViewSet):

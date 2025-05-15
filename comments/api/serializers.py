@@ -19,18 +19,15 @@ class ReadCommentSerializers(serializers.ModelSerializer):
 
 
 class WriteCommentSerializers(serializers.ModelSerializer):
-    # images = AttachedImageSerializers(many=True, required=False)
+    images = AttachedImageSerializers(many=True, required=False)
 
     class Meta:
         model = Comment
         exclude = ('object_id', 'content_type')
 
     def create(self, validated_data):
-        print(validated_data)
-        print(type(validated_data))
         images_data = validated_data.pop('images', {})
-        print(images_data)
         comment = Comment.objects.create(**validated_data)
-        for image_data in images_data:
+        for image_data in images_data.values:
             AttachedImage.objects.create(comment=comment, **image_data)
         return comment

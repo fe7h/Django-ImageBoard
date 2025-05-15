@@ -28,7 +28,9 @@ class CommentApiMixin:
     def get_commentated_object(self, **kwargs):
         return self.get_object()
 
-    @action(detail=True, methods=('post',))
+    @action(detail=True,
+            methods=('post',),
+            serializer_class=_create_comment.serializer_class)
     def comment(self, request, **kwargs):
         commentated_object = self.get_commentated_object(request=request, **kwargs)
         self._create_comment.set_content_object(commentated_object)

@@ -1,6 +1,6 @@
 # Django ImageBoard
 
-Simple imageboard on Django.
+Simple imageboard on Django with API on DRF.
 
 ## Installation
 
@@ -39,6 +39,8 @@ Users can:
 
 - view the list of threads and posts
 
+- all of the above, but using API
+
 ## Requirements
 
 - Python 3.x
@@ -46,3 +48,5 @@ Users can:
 - Django
 
 - Pillow (for image uploads)
+
+- Django REST Framework
